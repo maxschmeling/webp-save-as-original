@@ -1,3 +1,11 @@
+# webp-save-as-original
+
+This is a simple utility to allow user's to save images from `<img>` tags that have been served with WebP images.
+
+Simply include the code in your page after any `<img>` elements with a class of `webp-save-as-original` and they will be converted back to PNG/JPEG sources.
+
+# License
+
 MIT License
 
 Copyright (c) 2022 Max Schmeling
