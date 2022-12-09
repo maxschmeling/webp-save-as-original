@@ -1,14 +1,11 @@
-( function () {
-	function canUseWebP() {
-		var elem = document.createElement('canvas');
+( async function () {
+	async function canUseWebP() {
+		if (!self.createImageBitmap) return false;
 		
-		try {
-			return elem.toDataURL('image/webp').indexOf('data:image/webp') == 0;
-		} catch ( err ) {
-			console.error( err );
-		}
+		const webpData = 'data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoCAAEAAQAcJaQAA3AA/v3AgAA=';
+		const blob = await fetch(webpData).then(r => r.blob());
 
-		return false;
+		return createImageBitmap(blob).then(() => true, () => false);
 	}
 
 	function getConvertedDataUrl( img ) {
@@ -42,7 +39,7 @@
 	try {
 		var images = document.querySelectorAll( 'img.webp-save-as-original' );
 
-		if ( !! images.length && canUseWebP() ) {
+		if ( !! images.length && await canUseWebP() ) {
 			images.forEach( function ( img ) {
 				if ( img.src.includes( '.png' ) || img.src.includes( '.jpg' ) || img.src.includes( '.jpeg' ) ) {
 					swap( img );
