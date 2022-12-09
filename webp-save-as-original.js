@@ -1,10 +1,13 @@
 ( function () {
 	function canUseWebP() {
 		var elem = document.createElement('canvas');
-		if (!!(elem.getContext && elem.getContext('2d'))) {
-				return elem.toDataURL('image/webp').indexOf('data:image/webp') == 0;
-		}
 		
+		try {
+			return elem.toDataURL('image/webp').indexOf('data:image/webp') == 0;
+		} catch ( err ) {
+			console.error( err );
+		}
+
 		return false;
 	}
 
